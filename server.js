@@ -16,3 +16,11 @@ App.get("/api", (req, res) => {
 		message: "Boas vindas à imersão!"
 	})
 })
+
+App.get("/sobre", (req, res) => {
+	res.status(200).json({
+		"nome": "Leonardo Luz",
+		"idade": "22",
+		"descricao": "Desenvolvedor fullstack"
+	})
+})
