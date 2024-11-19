@@ -57,6 +57,18 @@ App.get("/posts/:id", (req, res) => {
 	})
 })
 
+
+const getPostsByDescription = (descricao) =>
+	posts.filter(post => post.descricao === descricao);
+
+App.get("/posts/descricao/:descricao", (req, res) => {
+	const filteredPosts = getPostsByDescription(req.params.descricao);
+
+	res.status(200).json({
+		posts: filteredPosts
+	});
+})
+
 App.get("/sobre", (req, res) => {
 	res.status(200).json({
 		"nome": "Leonardo Luz",
