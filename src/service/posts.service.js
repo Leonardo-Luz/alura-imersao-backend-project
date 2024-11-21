@@ -1,7 +1,5 @@
 
-export const getAll = (db) => {
-	const collection = db.collection("posts");
-
+export const getAll = (collection) => {
 	return collection.find().toArray();
 }
 
@@ -12,3 +10,7 @@ export const getAll = (db) => {
 // export const getByDescription = () => {
 // 	posts.filter(post => post.descricao === descricao);
 // }
+
+export const create = (collection, newElement) => {
+	return collection.insertOne(newElement);
+}
