@@ -1,23 +1,27 @@
 import express from "express";
-import dotenv from "dotenv";
-import mongodbConfig from "./src/config/mongodb.config.js";
+import cors from "cors"
+import 'dotenv/config.js';
+
 import { router as postsRouter } from "./src/routes/posts.route.js";
-dotenv.config();
-
-
-const App = express();
-App.use(express.json());
 
 const port = process.env.API_PORT;
 const host = process.env.API_HOST;
 
-App.listen(process.env.API_PORT, () => {
-	console.log(`Server Listening at http://${port}:${host}`);
-})
+const corsOption = {
+	origin: process.env.FRONT_URL,
+	optionsSuccessStatus: 200
+}
 
-App.use('/posts', postsRouter);
+const app = express();
 
-App.get("/sobre", (req, res) => {
+// NOTE: Rules
+app.use(express.json());
+app.use(cors(corsOption));
+app.use(express.static("uploads"))
+
+// NOTE: Routes
+app.use('/posts', postsRouter);
+app.get("/sobre", (req, res) => {
 	res.status(200).json({
 		"nome": "Leonardo Luz",
 		"idade": "22",
@@ -25,6 +29,9 @@ App.get("/sobre", (req, res) => {
 	})
 })
 
+app.listen(process.env.API_PORT, () => {
+	console.log(`Server Listening at http://${port}:${host}`);
+})
 
 
 
